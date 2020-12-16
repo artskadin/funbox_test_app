@@ -25,12 +25,6 @@ export function MainContextProvider({ children }) {
         }])
     }
 
-    const addPointToMap = (ymaps, name) => {
-        ymaps.geocode(name).then(result => {
-            const coords = result.geoObjects.get(0).geometry.getCoordinates()
-        })
-    }
-
     const pointsListChangeHandler = (id, coords, locateName) => {
         setPointsList(prev => {
             return prev.map(point => {
@@ -68,10 +62,10 @@ export function MainContextProvider({ children }) {
             currentPoint,
             setCurrentPoint,
             pointsList,
+            setPointsList,
             searchInputValue,
             setSearchInputValue,
             addPointToList,
-            addPointToMap,
             pointsListChangeHandler,
             deletePoint,
             inputChangeHandler,

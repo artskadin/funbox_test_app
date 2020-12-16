@@ -33,7 +33,6 @@ export default function MyMap() {
  
     const {
         pointsList,
-        addPointToMap,
         pointsListChangeHandler,
         ymaps,
         setYmaps,
@@ -42,13 +41,6 @@ export default function MyMap() {
         setMap,
         searchInputRef
     } = useMainContext()
-
-    const onMapClick = (event) => {
-        addPointToMap(ymaps, event.get('coords'))
-        ymaps.geocode(event.get('coords')).then(res => {
-            const locateName = res.geoObjects.get(0).getAddressLine()
-        })
-    }
 
     const onYMapsLoad = ymaps => {
         setYmaps(ymaps)
@@ -61,8 +53,11 @@ export default function MyMap() {
     return (
         <>
             <Map
-                instanceRef={map => setMap(map)}
-                onClick={onMapClick}
+                instanceRef={map => {
+                    try {map.behaviors.disable('scrollZoom')}
+                    catch(e) {console.log(e)}
+                    setMap(map)
+                }}
                 className={classes.root} 
                 defaultState={mapState}
                 modules={['control.ZoomControl', 'SuggestView']}
@@ -89,7 +84,6 @@ export default function MyMap() {
                             const newCoords = e.get('target').geometry.getCoordinates()
                             ymaps.geocode(newCoords).then(result => {
                                 const locateName = result.geoObjects.get(0).getAddressLine()
-                                console.log(locateName)
                                 pointsListChangeHandler(point.id, newCoords, locateName)
                             })
                         }}

@@ -40,7 +40,6 @@ export default function SearchInput({locateName, onChange, onAdd}) {
             })
 
             inputClearHandler()
-            console.log(`input was pressed. ${e.target.value}`)
         }
     }
 
