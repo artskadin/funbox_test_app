@@ -1,7 +1,8 @@
 Проект разработан с использованием:
-– react
+- react
 - react-yandex-maps
 - material-ui
+- react-beautiful-dnd
 
 ### `yarn start`
 
